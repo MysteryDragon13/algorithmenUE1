@@ -20,7 +20,9 @@ public class Main {
     */
     public static char[] convertToBinary(short in) {
         //System.out.println("converting");
-
+        if(in<0){
+            return null;
+        }
         //first we define the length of the binary code
         int len=log2(in);
         System.out.println(len);
@@ -35,9 +37,8 @@ public class Main {
             int b=(int)Math.pow(2,a);
             int next=x-b;System.out.println("x:"+x+" a:"+a+" b:"+b+" next:"+next);
             x=x-b;
-
+            //System.out.println(x);
         }
-        //System.out.println(x);
 
         return result;
     }
@@ -48,14 +49,60 @@ public class Main {
         return (int)(Math.log(N) / Math.log(2));
     }
 
+    /*
+    AUFGABE 2 Beschreibung:
+    1) Zahl/16, rest ist die nächste stelle des hex codes (wenn <=10; 10=A, 11=B, 12=C, 13=D, 14=E, 14=D)
+    2)wiederhol bis zahl/16==0
+
+    //reference: https://madformath.com/calculators/basic-math/base-converters/decimal-to-hexadecimal-converter-with-steps/decimal-to-hexadecimal-converter-with-steps
+    */
+    public static char[] convertToHexadezimal(int in) {
+        char[] code=new char[]{'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','D'};
+        int x=in;
+        int i=0;
+        while(x>0){
+            x=x/16;
+            i++;
+        }
+
+        char[] result=new char[i];
+        //System.out.println(i);
+        i=0;
+        x=in;
+        while(x>0){
+            int r=x%16;
+            //System.out.print(x+"|"+r);
+            result[i]=code[r];
+            //System.out.print("-"+ code[r]+"\n");
+            x=x/16;
+            i++;
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
+        //Aufgabe 1
         short in=36;//number to convert
         char[] result=convertToBinary(in);
         System.out.print(in+" = ");
-        //printing reverse for easy reading
+
         //System.out.print(result);
+        //printing reverse for easy reading
         for (int i = result.length -1; i >= 0; i--) {
             System.out.print(result[i]);
         }
+
+        //Aufgabe 2
+        int dez=97;
+        char[] hex=convertToHexadezimal(dez);
+
+        //System.out.print(hex);
+        //printing reverse for easy reading
+        for (int i = hex.length -1; i >= 0; i--) {
+            System.out.print(hex[i]);
+        }
+
+
     }
 }
