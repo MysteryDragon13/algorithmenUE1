@@ -17,29 +17,41 @@ public class Main {
     3) 2 hoch diese Zahl gibt die Position der '1' im string an
     4) die input Zahl minus die letzte Zahl ist die nächste Zahl
     5) wiederhohle 1)3) und 4) solange die nächste Zahl größer als 0 wäre
+
+    AUFGABE 3
+    man fügt eine Stelle zum code hinzu, die positiv von negativ unterscheidet (am Ende des arrays)
     */
     public static char[] convertToBinary(short in) {
         //System.out.println("converting");
-        if(in<0){
-            return null;
+        int x=in;
+        //adding negative numbers as an option
+        boolean neg = false;
+        if(x<0){
+            x= (-x);
+            neg=true;
+            //System.out.println(x);
         }
         //first we define the length of the binary code
-        int len=log2(in);
-        System.out.println(len);
-        char[] result=new char[len+1];
+        int len=log2(x);
+        //System.out.println(len);
+        char[] result=new char[len+2];
         Arrays.fill(result,'0');
+        if(neg){
+            result[len+1]='-';
+        }else{
+            result[len+1]=' ';
+        }
 
         //then we fill it
-        int x=in;
         while(x>0){
             int a=log2(x);
             result[a]='1';
             int b=(int)Math.pow(2,a);
-            int next=x-b;System.out.println("x:"+x+" a:"+a+" b:"+b+" next:"+next);
+            //int next=x-b;System.out.println("x:"+x+" a:"+a+" b:"+b+" next:"+next);
             x=x-b;
             //System.out.println(x);
         }
-
+        //result string is backwards
         return result;
     }
     // code for log2 in java: https://www.geeksforgeeks.org/how-to-calculate-log-base-2-of-an-integer-in-java/
@@ -83,16 +95,15 @@ public class Main {
 
     public static void main(String[] args) {
         //Aufgabe 1
-        short in=36;//number to convert
+        short in= -5;//number to convert
         char[] result=convertToBinary(in);
         System.out.print(in+" = ");
 
-        //System.out.print(result);
         //printing reverse for easy reading
         for (int i = result.length -1; i >= 0; i--) {
             System.out.print(result[i]);
         }
-
+/*
         //Aufgabe 2
         int dez=97;
         char[] hex=convertToHexadezimal(dez);
@@ -102,6 +113,9 @@ public class Main {
         for (int i = hex.length -1; i >= 0; i--) {
             System.out.print(hex[i]);
         }
+*/
+
+        //Aufgabe 3
 
 
     }
